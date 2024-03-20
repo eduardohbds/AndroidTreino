@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Treino2</string>
+    <string name="invalid_number">Invalid Number</string>
 </resources>

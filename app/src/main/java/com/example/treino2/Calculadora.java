@@ -13,5 +13,4 @@ public class Calculadora {
         return expressao;
     }
 
-    45
 }

@@ -2,9 +2,11 @@ package com.example.treino2;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
+import android.util.Log;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,6 +17,7 @@ import androidx.core.view.WindowInsetsCompat;
 public class MainActivity extends AppCompatActivity {
 
     Button btnContador,btnCalculadora;
+    EditText edtContador;
     TextView tvContador;
     int contador = 0;
     @Override
@@ -28,27 +31,31 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        tvContador = findViewById(R.id.tv_contador);
+
         btnCalculadora = findViewById(R.id.btn_calculadora);
         btnContador = findViewById(R.id.btn_contador);
+        edtContador = findViewById(R.id.edt_contador);
 
-        btnContador.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                contador++;
-                tvContador.setText(String.valueOf(contador));
-            }
-        });
-        btnCalculadora.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ChamaSegundaTela();
-            }
-        });
+
+        btnContador.setOnClickListener(v -> ChamaContadorTela());
+        btnCalculadora.setOnClickListener(v -> ChamaCalculadoraActivity());
+
     }
     public void ChamaSegundaTela(){
         Intent intentChamaCalculadora = new Intent(MainActivity.this,SegundaTela.class);
         intentChamaCalculadora.putExtra("contador",contador);
         startActivity(intentChamaCalculadora);
+    }
+    public void ChamaCalculadoraActivity(){
+        Intent intent = new Intent(MainActivity.this, CalculadoraActivity.class);
+        startActivity(intent);
+    }
+    public void ChamaContadorTela(){
+        contador = Integer.parseInt(edtContador.getText().toString().trim());
+        Intent intentChamaContador = new Intent(MainActivity.this, ContadorActivity.class);
+        intentChamaContador.putExtra("contador",contador);
+        Toast.makeText(this,"" + contador,Toast.LENGTH_LONG).show();
+        Log.i("Contador","contador value"+ contador);
+        startActivity(intentChamaContador);
     }
 }
